@@ -6,7 +6,11 @@
 	"content_scripts": 
 	[
 	    {
-	      "matches": ["http*://*.reddit.com/*"],
+	      "matches": ["https://*.reddit.com/*"],
+	      "css": ["reddit.css"]
+	    },
+	    {
+	      "matches": ["http://*.reddit.com/*"],
 	      "css": ["reddit.css"]
 	    }
   	]

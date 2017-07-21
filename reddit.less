@@ -1,4 +1,4 @@
-html
+:root
 {
 	> body
 	{
@@ -796,50 +796,169 @@ html
 		}
 	}
 
-	// .side
-	// {
-	// 	position: relative;
-	// 	box-shadow: 0 1px 8px rgba(0,0,0,0.25);
-	// 	padding: 16px 11px;
-	// 	top: 8px;
-	// 	right: 5px;
-	// 	margin-left: 2px;
-	// 	.comments-page &
-	// 	{
-	// 		margin-left: 14px;
-	// 	}
-	// 	margin-left: 5px;
-	// 	margin-bottom: 15px;
-	// 	margin-right: -330px;
-	// 	transition-property: margin-right;
-	// 	transition-duration: 0.3s;
-	// 	transition-timing-function: ease-out;
-	// 	position: relative;
-	// 	transition-delay: 1s;
-	// 	&:hover
-	// 	{
-	// 		margin-right: 5px;
-	// 		transition-delay: 0s;
-	// 	}
-	// 	&:before,
-	// 	&:after
-	// 	{
-	// 		position: absolute;
-	// 		content: "";
-	// 		top: 0;
-	// 		bottom: 0;
-	// 		left: -30px;
-	// 		right: 100%;
-	// 		z-index: 1;
-	// 	}
-	// 	&:after
-	// 	{
-	// 		left: 100%;
-	// 		right: -30px;
-	// 	}
-	// }
+	#header-bottom-right 
+	{
+	    position: absolute;
+	    right: 0;
+	    bottom: 0;
+	    background: none;
+	    display: flex;
+
+		.user 
+		{
+		    display: flex;
+		    background: #eee;
+		    padding: 6px 12px;
+		    margin: 0 !important;
+		    height: 12px;
+
+			.userkarma 
+			{
+			    font-weight: normal;
+			}
+
+			> a:first-child 
+			{
+			    display: inline-block;
+			    background: #eee;
+			    
+			    margin: 0 !important;
+			}
+
+			> #RESAccountSwitcherIcon 
+			{
+				display: none;
+			    order: 1;
+			    background: none;
+				&:before 
+				{
+				    content: "▾";
+				}
+			}
+		}
+
+		.separator 
+		{
+		    display: none;
+		}
+
+		#mail 
+		{
+		    background: #eee;
+		    text-indent: 0;
+		    display: block;
+		    position: static;
+		    padding: 6px 12px;
+		    height: 12px;
+		    margin: 0;
+		    white-space: nowrap;
+		    font-size: 20px;
+		    width: 17px;
+
+			&.havemail 
+			{
+			    color: #FF7500;
+			}
+
+		    &:before 
+			{
+			    content: "✉";
+			    margin-right: 2em;
+			}
+		}
+
+		.message-count 
+		{
+		    margin: 0;
+		    display: inline-block;
+		    border-radius: 11px;
+		    font-size: 9px;
+		    font-weight: normal;
+		    padding: 0;
+		    transform: translate(-22px,10px);
+		    height: 11px;
+		    line-height: 11px;
+		    min-width: 11px;
+		    text-align: center;
+		}
+
+		ul.flat-list 
+		{
+		    display: inline-block;
+		    background: #eee;
+		    padding: 6px 12px;
+		    font-weight: normal;
+		    height: 12px;
+		}	
+
+		.logout a
+		{
+		    display: inline-block;
+		    background: #eee;
+		    padding: 6px 12px;
+		    font-weight: normal;
+		    height: 12px;
+		}	
+
+		> *
+		{
+			margin-left: 6px !important;
+			&:last-child
+			{
+				padding-right: 10px;
+			}
+		}
+
+	}
 
 
+	.pref-lang 
+	{
+	    font-weight: normal;
+	}
 
+#RESSettingsButton.gearIcon:after {
+    color: #000;
+    padding: 6px 12px;
+    line-height: 12px;
+    display: block;
+    text-shadow: none;
+}
+
+#header-bottom-right #openRESPrefs {
+    background: #eee;
+    /* padding: 0; */
+    height: 24px;
+    margin: 0;
+}
+
+#RESSettingsButton {
+    display: block;
+    position: static;
+}
+
+.RESDropdownList {
+    /* display: block !important; */
+    background: #eee;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    border-radius: 0;
+}
+
+.RESDropdownList li {
+    line-height: 24px;
+    font-size: 14px;
+    font-weight: normal;
+    border: none;
+    border-radius: 0;
+    color: #000;
+    padding: 5px;
+}
+
+.RESDropdownList li .toggleButton .toggleLabel {
+    display: none;
+}
 
 }
+
+
