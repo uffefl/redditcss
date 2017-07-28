@@ -1,3 +1,5 @@
+@import "mixins.less";
+
 :root
 {
 	> body
@@ -16,56 +18,106 @@
 		}
 	}
 	#NREFloat,
-	#sr-header-area,
 	.listing-chooser,
 	#eu-cookie-policy
 	{
 		display: none;
 	}
-	.comments-page 
+	.comments-page,
+	.messages-page
 	{
 		>  .content,
 		>  #header
 		{
 			max-width: 1080px;
 		}
-		.comment 
-		{
-			border-radius: 0 !important;
-		}
-		.thing 
-		{
-			margin: 0 !important;
-			
-			.entry
-			{
-				margin: 0 0 0 18px;
-				padding: 5px;
-			}
-		}
 	}
-	.listing-page 
+
+	.commentarea .thing,
+	.was-comment.thing
 	{
-		.thing 
+		margin: 0 !important;
+		
+		p.subject 
 		{
-			padding: 16px 11px 16px 11px;
-			margin: 0px 0 10px 0;
+			position: relative;
+		    background: #fff;
+		    padding: 5px;
+		    margin: 0 0 5px 0;
+		    box-shadow: 0 1px 8px rgba(0,0,0,0.15);
+		    &, a
+		    {
+		    	font-size: 14px;
+		    	font-weight: normal;
+		    	color: gray;
+		    }
+		    a:before
+		    {
+	    		display: block;
+	    		content: "";
+	    		position: absolute; 
+	    		top: 0;
+	    		bottom: 0;
+	    		left: 0;
+	    		right: 0;
+		    }
+		}
+		.entry
+		{
+			margin: 0 0 0 18px;
+			padding: 5px;
 			background: #fff;
 			box-shadow: 0 1px 8px rgba(0,0,0,0.25);
-			position: relative;
-			transition-duration: 0.1s;
-			transition-property: opacity,box-shadow;
-			transition-timing-function: ease-out;
-			overflow: hidden;
-			.res-media-zoomable
-			{
-				max-height: 90vh;
-			}
-			&.RES-keyNav-activeThing 
+			&.RES-keyNav-activeElement
 			{
 				opacity: 1;
 				box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 			}
+			p
+			{
+				display: inline-block;
+			}
+			.md-container
+			{
+				padding: 4px;
+				margin: 0;
+				.md
+				{
+					margin: 0;
+				}
+			}
+			.parent-link
+			{
+				.mini-button();
+			}
+			.flat-list.buttons
+			{
+				padding: 1px;
+			}
+		}
+	}
+
+
+	.comments-page 
+	{
+		.comment 
+		{
+			border-radius: 0 !important;
+		}
+	}
+	.listing-page .thing 
+	{
+		padding: 16px 11px 16px 11px;
+		margin: 0px 0 10px 0;
+		background: #fff;
+		position: relative;
+		transition-duration: 0.1s;
+		transition-property: opacity,box-shadow;
+		transition-timing-function: ease-out;
+		overflow: hidden;
+		.res-media-zoomable
+		{
+			max-height: 90vh;
 		}
 	}
 	.entry
@@ -226,32 +278,34 @@
 				display: none;
 			}
 		}
-		> .usertext,
-		> .flat-list
+	}
+	.messages-page
+	{
+		.entry > .flat-list > li
 		{
-			padding: 0 4px;
-			li
+			display: inline-block;
+		}
+
+	}
+	.flat-list.buttons
+	{
+		.button-container();
+		> li
+		{
+			> *,
+			.redditSingleClick
 			{
-				display: none;
-				margin-right: 0.5ex;
-				a
-				{
-					font-size: 13px !important;
-					font-weight: normal;
-					color: gray;
-					padding: 0;
-				}
-				&.save-button,
-				&.report-button,
-				&.reply-button
-				{
-					display: inline-block;
-				}
-				+li
-				{
-					padding: 0;
-				}
+				.mini-button();
 			}
+		}
+		[data-event-action="permalink"],
+		.viewSource,
+		.embed-comment,
+		.RES-save,
+		.toggleChildren,
+		.full-comments
+		{
+			display: none !important;
 		}
 	}
 	.comment.collapsed .tagline :not(.expand),
@@ -491,8 +545,9 @@
 		height: 50px;
 		overflow: hidden;
 		margin: 0 auto;
+		z-index: initial;
 	}
-	#header:after 
+	#header-bottom-left:after 
 	{
 		position: absolute;
 		bottom: 0;
@@ -560,6 +615,7 @@
 	{
 		background: #eee;
 		box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+		z-index: 3;
 	}
 	#header-bottom-left ul.tabmenu li.selected a:before
 	{
@@ -798,11 +854,46 @@
 
 	#header-bottom-right 
 	{
-	    position: absolute;
+	    position: fixed;
+	    top: 0;
 	    right: 0;
-	    bottom: 0;
 	    background: none;
 	    display: flex;
+	    z-index: 1;
+
+	    padding: 10px;
+
+		// background: #fff;
+		// box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+		width: 320px;
+		box-sizing: border-box;
+		justify-content: flex-end;
+
+
+	    > *
+	    {
+		    transform: translateY(-100px);
+		    transition-property: transform;
+		    transition-duration: 0.3s;
+		    transition-delay: 1s;
+		    transition-timing-function: ease-out;
+	    }
+
+	    &:hover > *,
+	    #mail.havemail
+	    {
+	    	transform: none;
+		    transition-duration: 0.1s;
+		    transition-delay: 0s;
+	    }
+
+	    a
+	    {
+	    	color: #000;
+	    	text-decoration: none;
+	    	font-size: 14px;
+	    	font-weight: normal;
+	    }
 
 		.user 
 		{
@@ -810,7 +901,6 @@
 		    background: #eee;
 		    padding: 6px 12px;
 		    margin: 0 !important;
-		    height: 12px;
 
 			.userkarma 
 			{
@@ -849,11 +939,11 @@
 		    display: block;
 		    position: static;
 		    padding: 6px 12px;
-		    height: 12px;
 		    margin: 0;
 		    white-space: nowrap;
 		    font-size: 20px;
 		    width: 17px;
+		    order: 98;
 
 			&.havemail 
 			{
@@ -865,6 +955,7 @@
 			    content: "✉";
 			    margin-right: 2em;
 			}
+
 		}
 
 		.message-count 
@@ -880,34 +971,67 @@
 		    line-height: 11px;
 		    min-width: 11px;
 		    text-align: center;
+		    order: 99;
+		    margin-right: -17px;
 		}
 
-		ul.flat-list 
+		ul.flat-list li 
 		{
-		    display: inline-block;
-		    background: #eee;
-		    padding: 6px 12px;
-		    font-weight: normal;
-		    height: 12px;
-		}	
-
-		.logout a
-		{
-		    display: inline-block;
-		    background: #eee;
-		    padding: 6px 12px;
-		    font-weight: normal;
-		    height: 12px;
-		}	
-
-		> *
-		{
-			margin-left: 6px !important;
-			&:last-child
+			display: inline-block;
+			a
 			{
-				padding-right: 10px;
-			}
+			    display: inline-block;
+			    background: #eee;
+			    padding: 6px 12px;
+			    font-weight: normal;
+			    height: 12px;
+			    font-size: 20px;
+			    width: 17px;
+
+			    &:before
+			    {
+			    	content: "☯";
+			    	margin-right: 2em;
+			    }
+			}	
 		}
+
+
+		.logout 
+		{
+			a
+			{
+			    display: inline-block;
+			    background: #eee;
+			    padding: 6px 12px;
+			    font-weight: normal;
+			    height: 12px;
+			}	
+		    display: none;
+		}
+
+		> *,
+		ul.flat-list li a
+		{
+		    background: #eee;
+			height: 12px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+			margin-left: 6px !important;
+			overflow: hidden;
+		}
+		> *:last-child
+		{
+			padding-right: 10px;
+		}
+		ul.flat-list
+		{
+			background: none;
+			height: auto;
+			box-shadow: none;
+			margin: 0 !important;
+			overflow: initial;
+		}
+
 
 	}
 
@@ -958,7 +1082,85 @@
 .RESDropdownList li .toggleButton .toggleLabel {
     display: none;
 }
+	#sr-header-area
+	{
+		.width-clip,		
+		.srSep,
+		#RESStaticShortcuts,
+		#RESShortcutsViewport,
+		#RESShortcutsEditContainer
+		{
+			display: none;
+		}
+		background: none;
+    	border: none;
+    	height: auto;
+    	font-size: 14px;
+    	line-height: 20px;
+    	#srLeftContainer
+    	{
+	    	max-height: none;
+	    	#srDropdown a
+	    	{
+	    		display: block;
+	    		background: #eee;
+				padding: 2px 6px;
+		    	position: fixed;
+			    left: 6px;
+			    top: 10px;
+			    z-index: 1000;
+			    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+
+			    left: 0;
+			    top: 0;
+			    box-sizing: border-box;
+			    width: 24px;
+			    height: 24px;
+			    overflow: hidden;
+			    &:before
+			    {
+			    	content: "S";
+			    	margin-right: 2em;
+			    }
+	    	}
+    	}
+	}
+
+	#srList
+	{
+		position: fixed;
+	    left: 0;
+	    top: 0;
+	    border: none;
+	    max-height: 100vh;
+	    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+	    background: #eee;
+	    thead
+	    {
+	    	display: none;
+	    }
+	    td:last-child
+	    {
+	    	display: none;
+	    }
+	    tr
+	    {
+	    	border: none;
+	    	&:hover
+	    	{
+	    		background: rgb(156, 198, 236);
+	    	}
+	    }
+	    td
+	    {
+	    	padding: 5px;
+	    }
+	    a
+	    {
+	    	color: #000;
+	    	text-decoration: none;
+	    	display: block;
+	    }
+	}
 
 }
-
-

@@ -7,11 +7,13 @@
 	[
 	    {
 	      "matches": ["https://*.reddit.com/*"],
-	      "css": ["reddit.css"]
+	      "css": ["reddit.css"],
+	      "run_at": "document_start"
 	    },
 	    {
 	      "matches": ["http://*.reddit.com/*"],
-	      "css": ["reddit.css"]
+	      "css": ["reddit.css"],
+	      "run_at": "document_start"
 	    }
   	]
 }
