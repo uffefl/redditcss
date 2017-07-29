@@ -1,3 +1,18 @@
+@bg: #ccc;
+@content: #eee;
+@panel: #fff;
+
+@btn: #ddd;
+@btn-hover: mix(@btn,@btn-active);
+@btn-active: @content;
+
+@text: #000;
+
+.layer(@n)
+{
+	box-shadow: 0 @n*1px 8px rgba(0,0,0,0.15 + @n*0.10);
+}
+
 .mini-button()
 {
 	&, a
@@ -15,7 +30,7 @@
 	transition: 0.1s ease-out background,color,box-shadow;
 	&:hover
 	{
-		background: #eee;
+		background: @btn-hover;
 		color: #000;
 		box-shadow: 0 0 2px rgba(0,0,0,0.25);
 	}
@@ -40,5 +55,44 @@
 		font-size: 10px;
 		font-weight: normal;
 		color: #666;
+	}
+}
+.big-button()
+{
+	display: inline-block;
+	padding: 0 6px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	white-space: nowrap;
+	font-weight: normal;
+	color: #000;
+	background: @btn;
+	text-decoration: none;
+	text-indent: 0;
+	.layer(1);
+	&:hover
+	{
+		background: @btn-hover;
+		.layer(2);
+	}
+}
+.icon-button()
+{
+	.big-button();
+	padding: 0;
+	overflow: hidden;
+	width: 41px;
+	font-size: 20px;
+	&:before
+	{
+		display: block;
+		width: 41px;
+		height: 24px;
+		content: "?";
+		font-size: 20px;
+		font-weight: normal;
+		line-height: 22px;
+		font-family: "Segoe UI Emoji";
 	}
 }

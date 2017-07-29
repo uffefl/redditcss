@@ -852,40 +852,96 @@
 		}
 	}
 
+	#sr-header-area
+	{
+		.width-clip,		
+		.srSep,
+		#RESStaticShortcuts,
+		#RESShortcutsViewport,
+		#RESShortcutsEditContainer
+		{
+			display: none;
+		}
+		background: none;
+    	border: none;
+    	height: auto;
+    	font-size: 14px;
+    	line-height: 20px;
+    	#srLeftContainer
+    	{
+	    	max-height: none;
+	    	z-index: initial;
+	    	#srDropdown 
+	    	{
+	    		z-index: initial;
+	    		a
+		    	{
+		    		position: fixed;
+		    		left: 10px;
+		    		top: 0;
+		    		.icon-button();
+		    		z-index: 5;
+				    &:before
+				    {
+				    	content: "💬";
+				    }
+		    	}
+		    }
+    	}
+	}
+
+	.hiding-above()
+	{
+	    transform: translateY(-100px);
+	    transition-property: transform;
+	    transition-duration: 0.3s;
+	    transition-delay: 1s;
+	    transition-timing-function: ease-out;
+	}
+	.visible-above()
+	{
+    	transform: none;
+	    transition-duration: 0.1s;
+	    transition-delay: 0s;
+	}
+
+	#header > #header-bottom-right 
+	{
+		> .user,
+		> #mail,
+		> .flat-list a,
+		#RESSettingsButton
+	    {
+	    	.hiding-above();
+	    }
+		> #mail.havemail
+		{
+			.visible-above();
+		}
+	}
+
+	#header:hover > #header-bottom-right 
+	{
+		> .user,
+		> #mail,
+		> .flat-list a,
+		#RESSettingsButton
+	    {
+	    	.visible-above();
+	    }
+	}
+
 	#header-bottom-right 
 	{
 	    position: fixed;
 	    top: 0;
-	    right: 0;
+	    right: 10px;
+	    left: 10px + 41px + 6px;
 	    background: none;
 	    display: flex;
 	    z-index: 1;
-
-	    padding: 10px;
-
-		// background: #fff;
-		// box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-		width: 320px;
-		box-sizing: border-box;
-		justify-content: flex-end;
-
-
-	    > *
-	    {
-		    transform: translateY(-100px);
-		    transition-property: transform;
-		    transition-duration: 0.3s;
-		    transition-delay: 1s;
-		    transition-timing-function: ease-out;
-	    }
-
-	    &:hover > *,
-	    #mail.havemail
-	    {
-	    	transform: none;
-		    transition-duration: 0.1s;
-		    transition-delay: 0s;
-	    }
+		justify-content: flex-start;
+		padding: 0;
 
 	    a
 	    {
@@ -895,12 +951,19 @@
 	    	font-weight: normal;
 	    }
 
-		.user 
+	    margin: 0 -6px 0 0;
+	    > .user,
+	    #mail,
+	    #openRESPrefs,
+	    > ul.flat-list
+	    {
+	    	margin: 0 6px 0 0;
+	    }
+
+		> .user 
 		{
+			.big-button();
 		    display: flex;
-		    background: #eee;
-		    padding: 6px 12px;
-		    margin: 0 !important;
 
 			.userkarma 
 			{
@@ -910,7 +973,7 @@
 			> a:first-child 
 			{
 			    display: inline-block;
-			    background: #eee;
+			    
 			    
 			    margin: 0 !important;
 			}
@@ -934,64 +997,77 @@
 
 		#mail 
 		{
-		    background: #eee;
-		    text-indent: 0;
-		    display: block;
 		    position: static;
-		    padding: 6px 12px;
-		    margin: 0;
-		    white-space: nowrap;
-		    font-size: 20px;
-		    width: 17px;
-		    order: 98;
+		    order: -2;
+			.icon-button();
+			
 
 			&.havemail 
 			{
 			    color: #FF7500;
+			    &:before
+			    {
+					filter: contrast(50%) sepia(100%);
+				}
 			}
-
 		    &:before 
 			{
-			    content: "✉";
-			    margin-right: 2em;
+			    // content: "✉";
+			    content: "\2709";
+			    font-family: "Segoe UI Emoji";
 			}
+		}
 
+		#RESSettingsButton
+		{
+			.icon-button();
+			&:before
+			{
+				content: "⚙";
+			}
 		}
 
 		.message-count 
 		{
 		    margin: 0;
 		    display: inline-block;
-		    border-radius: 11px;
+		    border-radius: 3px;
 		    font-size: 9px;
-		    font-weight: normal;
+		    font-weight: bold;
 		    padding: 0;
 		    transform: translate(-22px,10px);
 		    height: 11px;
 		    line-height: 11px;
 		    min-width: 11px;
 		    text-align: center;
-		    order: 99;
-		    margin-right: -17px;
+		    order: -1;
+		    margin-right: -11px;
+		    background: #dc0000;
+		    color: #fff;
+
+		    // display: inline-block;
+		    // background: none;
+		    // color: #000;
+		    // border: none;
+		    // width: 41px;
+		    // height: 24px;
+		    // border-radius: 0;
+		    // line-height: 22px;
+		    // transform: translate(-47px,1px);
+		    // font-size: 12px;
+		    // margin-right: -41px;
 		}
 
-		ul.flat-list li 
+		> ul.flat-list li 
 		{
 			display: inline-block;
 			a
 			{
-			    display: inline-block;
-			    background: #eee;
-			    padding: 6px 12px;
-			    font-weight: normal;
-			    height: 12px;
-			    font-size: 20px;
-			    width: 17px;
-
+				.icon-button();
 			    &:before
 			    {
-			    	content: "☯";
-			    	margin-right: 2em;
+			    	// content: "☯";
+			    	content: "🎛";
 			    }
 			}	
 		}
@@ -1001,65 +1077,33 @@
 		{
 			a
 			{
-			    display: inline-block;
-			    background: #eee;
-			    padding: 6px 12px;
-			    font-weight: normal;
-			    height: 12px;
+			    .big-button();
 			}	
 		    display: none;
 		}
 
-		> *,
-		ul.flat-list li a
-		{
-		    background: #eee;
-			height: 12px;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-			margin-left: 6px !important;
-			overflow: hidden;
-		}
-		> *:last-child
-		{
-			padding-right: 10px;
-		}
-		ul.flat-list
-		{
-			background: none;
-			height: auto;
-			box-shadow: none;
-			margin: 0 !important;
-			overflow: initial;
-		}
+		
 
 
 	}
 
+	.gearIcon
+	{
+		&:before
+		{
+			content: "⚙";
+		}
+		&:after
+		{
+			display: none !important;
+		}
+	}
 
 	.pref-lang 
 	{
 	    font-weight: normal;
 	}
 
-#RESSettingsButton.gearIcon:after {
-    color: #000;
-    padding: 6px 12px;
-    line-height: 12px;
-    display: block;
-    text-shadow: none;
-}
-
-#header-bottom-right #openRESPrefs {
-    background: #eee;
-    /* padding: 0; */
-    height: 24px;
-    margin: 0;
-}
-
-#RESSettingsButton {
-    display: block;
-    position: static;
-}
 
 .RESDropdownList {
     /* display: block !important; */
@@ -1082,58 +1126,15 @@
 .RESDropdownList li .toggleButton .toggleLabel {
     display: none;
 }
-	#sr-header-area
-	{
-		.width-clip,		
-		.srSep,
-		#RESStaticShortcuts,
-		#RESShortcutsViewport,
-		#RESShortcutsEditContainer
-		{
-			display: none;
-		}
-		background: none;
-    	border: none;
-    	height: auto;
-    	font-size: 14px;
-    	line-height: 20px;
-    	#srLeftContainer
-    	{
-	    	max-height: none;
-	    	#srDropdown a
-	    	{
-	    		display: block;
-	    		background: #eee;
-				padding: 2px 6px;
-		    	position: fixed;
-			    left: 6px;
-			    top: 10px;
-			    z-index: 1000;
-			    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-
-			    left: 0;
-			    top: 0;
-			    box-sizing: border-box;
-			    width: 24px;
-			    height: 24px;
-			    overflow: hidden;
-			    &:before
-			    {
-			    	content: "S";
-			    	margin-right: 2em;
-			    }
-	    	}
-    	}
-	}
-
+	
 	#srList
 	{
 		position: fixed;
-	    left: 0;
-	    top: 0;
+	    left: 10px;
+	    top: 26px;
 	    border: none;
-	    max-height: 100vh;
-	    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+	    max-height: calc(~"100vh - 26px");
+	    .layer(2);
 	    background: #eee;
 	    thead
 	    {
