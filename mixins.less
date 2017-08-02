@@ -6,9 +6,38 @@
 @btn-hover: mix(@btn,@btn-active);
 @btn-active: @content;
 
+@font-family: sans-serif;
+@font-weight: normal;
+
 @text: #000;
 @dark: #666;
 @mid: gray;
+
+@normal-size: 14px;
+@small-size: 10px;
+
+@normal-line: ceil(@normal-size * 1.4);
+@small-line: ceil(@small-size * 1.4);
+
+@content-width: 1080px;
+
+.normal()
+{
+	font-family: @font-family;
+	font-weight: @font-weight;
+	font-size: @normal-size;
+	color: @text;
+	line-height: @normal-line;
+}
+
+.small()
+{
+	font-family: @font-family;
+	font-weight: @font-weight;
+	font-size: @small-size;
+	color: @text;
+	line-height: @small-line;
+}
 
 .layer(@n)
 {
@@ -19,9 +48,8 @@
 {
 	&, a
 	{
-		font-size: 10px;
-		font-weight: normal;
-		color: #666;
+		.small();
+		color: @dark;
 		text-decoration: none !important;
 	}
 	background: none;
@@ -33,7 +61,7 @@
 	&:hover
 	{
 		background: @btn-hover;
-		color: #000;
+		color: @text;
 		box-shadow: 0 0 2px rgba(0,0,0,0.25);
 	}
 }
@@ -53,10 +81,9 @@
 	&,
 	> *
 	{
+		.small();
 		line-height: 10px;
-		font-size: 10px;
-		font-weight: normal;
-		color: #666;
+		color: @dark;
 	}
 }
 .big-button()
@@ -64,11 +91,10 @@
 	display: inline-block;
 	padding: 0 6px;
 	height: 24px;
+	.normal();
 	line-height: 24px;
 	text-align: center;
 	white-space: nowrap;
-	font-weight: normal;
-	color: #000;
 	background: @btn;
 	text-decoration: none;
 	text-indent: 0;
@@ -85,7 +111,6 @@
 	padding: 0;
 	overflow: hidden;
 	width: 41px;
-	font-size: 20px;
 	background: none;
 	box-shadow: none;
 	&:before
